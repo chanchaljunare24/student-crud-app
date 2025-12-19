@@ -1,0 +1,107 @@
+/* Page wrapper: center content and constrain width */
+.students-container {
+  /* page padding */
+  padding: 16px;
+
+  /* center all direct children and constrain their width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > * {
+    width: 100%;
+    max-width: 980px; /* Adjust: 840–1100 based on your design */
+  }
+}
+
+/* Header toolbar: New button left, Search right */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  .search-field {
+    width: 320px;
+    max-width: 45vw;
+  }
+}
+
+/* Card that wraps the table */
+.table-card {
+  margin: 8px 0 16px;
+  padding: 8px 0; /* inner breathing space around table */
+  border-radius: 14px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+
+  .mat-mdc-card-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+  }
+}
+
+/* Table container: prevent full-page height, allow internal scroll */
+.table-container {
+  overflow: auto;
+  max-height: 55vh; /* keeps table within card */
+  padding: 0 8px; /* horizontal padding so cells don’t touch edges */
+}
+
+/* Table layout and comfy cell padding */
+table {
+  width: 100%;
+}
+
+.mat-mdc-header-cell,
+.mat-mdc-cell {
+  padding: 12px 16px; /* comfortable spacing for readability */
+}
+
+/* Actions column alignment */
+.actions-header,
+.actions-cell {
+  text-align: right;
+}
+
+.actions-cell button + button {
+  margin-left: 6px;
+}
+
+/* Paginator spacing */
+mat-paginator {
+  padding: 6px 8px;
+}
+
+/* Optional footer actions (if present) */
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+
+  .message {
+    color: #6b7280; /* gray-500 */
+    font-size: 13px;
+  }
+}
+
+/* Make the dialog/card look a little more rounded globally (optional) */
+:host ::ng-deep .mat-mdc-card {
+  border-radius: 14px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column; /* stack toolbar items on small screens */
+    align-items: stretch;
+  }
+  .search-field {
+    width: 100%;
+  }
+  .students-container > * {
+    max-width: 100%;
+  }
+}

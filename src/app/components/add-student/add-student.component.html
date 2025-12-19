@@ -1,0 +1,112 @@
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <!-- Bind form to ngForm to track validity -->
+      <form #studentForm="ngForm" (ngSubmit)="saveStudent()">
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            [(ngModel)]="student.name"
+            #name="ngModel"
+            required
+            minlength="2"
+            maxlength="50"
+          />
+          <!-- Validation errors -->
+          <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+            <small *ngIf="name.errors?.['required']">Name is required.</small>
+            <small *ngIf="name.errors?.['minlength']">
+              Name must be at least
+              {{ name.errors?.['minlength'].requiredLength }} characters.
+            </small>
+            <small *ngIf="name.errors?.['maxlength']">
+              Name must be at most
+              {{ name.errors?.['maxlength'].requiredLength }} characters.
+            </small>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group mt-3">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            [(ngModel)]="student.email"
+            #email="ngModel"
+            required
+            email
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          />
+          <!-- Validation errors -->
+          <div class="text-danger mt-1" *ngIf="email.invalid && email.touched">
+            <small *ngIf="email.errors?.['required']">Email is required.</small>
+            <small *ngIf="email.errors?.['email'] || email.errors?.['pattern']">
+              Enter a valid email address.
+            </small>
+          </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group mt-3">
+          <label for="gender">Gender</label>
+          <select
+            class="form-control"
+            id="gender"
+            name="gender"
+            [(ngModel)]="student.gender"
+            #gender="ngModel"
+            required
+          >
+            <option value="" disabled>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <!-- Validation errors -->
+          <div
+            class="text-danger mt-1"
+            *ngIf="gender.invalid && gender.touched"
+          >
+            <small>Gender is required.</small>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="btn btn-success mt-3"
+          [disabled]="studentForm.invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <div *ngIf="submitted">
+      <!-- Dialog Header -->
+      <h2 mat-dialog-title class="dialog-title">
+        <span class="spacer"></span>
+        <button mat-icon-button mat-dialog-close aria-label="Close dialog">
+          <mat-icon>close</mat-icon>
+        </button>
+      </h2>
+
+      <!-- Dialog Content -->
+      <mat-dialog-content>
+        <div class="success-card">
+          <h4 class="success-text">
+            <mat-icon color="primary">check_circle</mat-icon>
+            Student was submitted successfully!
+          </h4>
+        </div>
+      </mat-dialog-content>
+    </div>
+  </div>
+</div>

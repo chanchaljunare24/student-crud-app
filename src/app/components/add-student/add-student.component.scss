@@ -1,0 +1,142 @@
+
+.submit-form {
+  max-width: 520px;
+  margin: 20px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; // consistent spacing between fields
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #333;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          border-color: #1976d2; // Material primary color
+          outline: none;
+          box-shadow: 0 0 4px rgba(25, 118, 210, 0.3);
+        }
+      }
+
+      .text-danger {
+        font-size: 12px;
+        margin-top: 4px;
+        color: #d32f2f; // Material error color
+      }
+    }
+
+    button[type='submit'] {
+      align-self: flex-end;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      background-color: #1976d2; // Material primary
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover:not(:disabled) {
+        background-color: #1565c0;
+      }
+
+      &:disabled {
+        background-color: #90caf9;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  h4 {
+    text-align: center;
+    color: #1976d2;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+}
+
+/* Success state card */
+.success-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  .success-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1ea21e;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 24px;
+
+    mat-icon {
+      margin-right: 8px;
+      font-size: 24px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: none;
+           font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+  }
+}
+
+/* Dialog header alignment */
+.dialog-title {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 8px;
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  button[mat-icon-button] {
+    margin-left: 8px;
+  }
+}
+
+/* Optional: round the dialog container */
+:host ::ng-deep .mat-mdc-dialog-container {
+  border-radius: 16px;
+}

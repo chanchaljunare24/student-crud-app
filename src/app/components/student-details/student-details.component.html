@@ -1,0 +1,133 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentStudent.id">
+    <h4>Student</h4>
+
+    <div>
+      <label><strong>Name:</strong></label> {{ currentStudent.name }}
+    </div>
+
+    <div>
+      <label><strong>Email:</strong></label> {{ currentStudent.email }}
+    </div>
+
+    <div>
+      <label><strong>Gender:</strong></label> {{ currentStudent.gender }}
+    </div>
+
+    <a
+      class="badge badge-warning"
+      [routerLink]="['/students', currentStudent.id]"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentStudent.id">
+    <br />
+    <p>Please click on a Student...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentStudent.id" class="edit-form">
+    <h4>Student</h4>
+
+    <form #studentForm="ngForm" (ngSubmit)="updateStudent(studentForm)">
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="currentStudent.name"
+          name="name"
+          #name="ngModel"
+          required
+          minlength="2"
+          maxlength="50"
+        />
+        <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+          <small *ngIf="name.errors?.['required']">Name is required.</small>
+          <small *ngIf="name.errors?.['minlength']">
+            Name must be at least
+            {{ name.errors?.['minlength'].requiredLength }} characters.
+          </small>
+          <small *ngIf="name.errors?.['maxlength']">
+            Name must be at most
+            {{ name.errors?.['maxlength'].requiredLength }} characters.
+          </small>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group mt-3">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          [(ngModel)]="currentStudent.email"
+          name="email"
+          #email="ngModel"
+          required
+          email
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        />
+        <div class="text-danger mt-1" *ngIf="email.invalid && email.touched">
+          <small *ngIf="email.errors?.['required']">Email is required.</small>
+          <small *ngIf="email.errors?.['email'] || email.errors?.['pattern']">
+            Enter a valid email address.
+          </small>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="form-group mt-3">
+        <label for="gender">Gender</label>
+        <select
+          class="form-control"
+          id="gender"
+          [(ngModel)]="currentStudent.gender"
+          name="gender"
+          #gender="ngModel"
+          required
+        >
+          <option value="" disabled>Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <div class="text-danger mt-1" *ngIf="gender.invalid && gender.touched">
+          <small>Gender is required.</small>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-4">
+        <button
+          type="submit"
+          class="badge badge-success mb-2"
+          [disabled]="studentForm.invalid"
+        >
+          Update
+        </button>
+
+        <button
+          type="button"
+          class="badge badge-danger mr-2"
+          (click)="deleteStudent()"
+          [disabled]="!currentStudent.id"
+        >
+          Delete
+        </button>
+      </div>
+
+      <p>{{ message }}</p>
+    </form>
+  </div>
+
+  <div *ngIf="!currentStudent.id">
+    <br />
+    <p>Cannot access this Student...</p>
+  </div>
+</ng-template>
